@@ -1,4 +1,4 @@
-<cfdirectory action="list" directory="C:\CommandBox\aoc" listinfo="name" type="file" filter="*.cfm" recurse="true" name="files">
+<cfdirectory action="list" directory="C:\CommandBox\adventofcode" listinfo="name" type="file" filter="*.cfm" recurse="true" name="files">
 
 <cfdump var="#getBaseTemplatePath()#">
 
