@@ -1,6 +1,4 @@
-<cfdirectory action="list" directory="C:\CommandBox\adventofcode" listinfo="name" type="file" filter="*.cfm" recurse="true" name="files">
-
-<cfdump var="#getBaseTemplatePath()#">
+<cfdirectory action="list" directory="#getDirectoryFromPath(getBaseTemplatePath())#" listinfo="name" type="file" filter="*.cfm" recurse="true" name="files">
 
 <cfoutput query="files">
 <ul>
