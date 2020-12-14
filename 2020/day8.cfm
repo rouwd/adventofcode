@@ -74,12 +74,11 @@
 		commands.append( newCommand(e) );
 	}, chr( 10 ), true );
 
-	commandIndex = 1;
 	minIndex = 1;
 	maxIndex = commands.len();
 	commandCopy = duplicate(commands);
 
-	for ( i=1; i<=maxIndex; i++ ) {
+	for ( i=210; i<=maxIndex; i++ ) {
 		commands = duplicate(commandCopy);
 
 		if ( commands[i].command == "acc" ) continue;
@@ -92,6 +91,7 @@
 			writeOutput("jmp to nop: " & i & "<br>");
 		}
 
+		commandIndex = 1;
 		dupeFound = false;
 		eof = false;
 		accumulator = 0;
@@ -145,7 +145,7 @@
 	}
 
 	writeDump(i);
-	writeDump( accs );
+	//writeDump( accs );
 	writeDump( accumulator );
 
 	function newCommand( string input ) {
