@@ -78,7 +78,7 @@
 	maxIndex = commands.len();
 	commandCopy = duplicate(commands);
 
-	for ( i=210; i<=maxIndex; i++ ) {
+	for ( i=1; i<=maxIndex; i++ ) {
 		commands = duplicate(commandCopy);
 
 		if ( commands[i].command == "acc" ) continue;
