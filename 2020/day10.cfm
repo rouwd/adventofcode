@@ -45,7 +45,7 @@
 // 3";
 	//writeDump(puzzleInput);
 
-/* part 1 */
+/* part 1 
 	oneJolt = 0;
 	threeJolt = 0;
 	sortedAdapters = listToArray( puzzleInput, chr(10) );
@@ -64,28 +64,49 @@
 	}
 
 	writeOutput("oneJolt: " & oneJolt & " threeJolt: " & threeJolt & " oneJolt * threeJolt = " & oneJolt*threeJolt & "<br>");
-
-	// puzzleInput.listEach( function( e, i, l ){
-	// 	var element = trim(e);
-	// 	if ( buffer.len() < preambleSize ) {
-	// 		buffer.append( element );
-	// 	} else {
-	// 		if ( !findMatch( buffer, element, maxValue, secondToMaxValue ) ) {
-	// 			writeOutput( "Answer: " & element & "<br>" );
-	// 			writeDump(buffer);
-	// 			abort;
-	// 		}
-	// 		buffer.deleteAt(1);
-	// 		buffer.append( element );
-	// 	}
-	// 	if ( element > maxValue ) {
-	// 		secondToMaxValue = maxValue;
-	// 		maxValue = element;
-	// 		writeOutput( "maxValue: " & maxValue & " secondToMaxValue: " & secondToMaxValue & "<br>" );
-	// 	}
-	// }, chr( 10 ), true );
-
+*/
 
 /* part 2 */
+	sortedAdapters = listToArray( puzzleInput, chr(10) );
 
+	sortedAdapters.sort( "numeric" );
+	sortedAdapters.prepend(0);
+	sortedAdapters.append(sortedAdapters[-1] + 3);
+	// writeDump(sortedAdapters);
+
+	adapters = structNew("Ordered","numeric");
+
+	for( i=1; i<=sortedAdapters.len(); i++ ) {
+		if ( i == 1 ) {
+			adapters[ sortedAdapters[i] ] = 1;
+			continue;
+		}
+		adapters[ sortedAdapters[i] ] = sortedAdapters[i] - sortedAdapters[i-1];
+	}
+	totalPermutations = calcPermutations(adapters, sortedAdapters);
+
+	writeDump(totalPermutations);
+	//writeDump(sortedAdapters);
+	writeDump(adapters);
+
+	numeric function calcPermutations( struct adapters, array sortedAdapters ) {
+		var total = createObject("java", "java.lang.Long").init(1);
+		var permutations = [1,1,1,2,4,7];
+		var singleJoltCount = 1;
+		var factors = [];
+
+		for ( var i=1; i<=arguments.sortedAdapters.len(); i++ ) {
+			if ( adapters[ arguments.sortedAdapters[i] ] == 3 ) {
+				total = total * permutations[ singleJoltCount ];
+				factors.append(permutations[ singleJoltCount ]);
+				//writeOutput(  )
+				singleJoltCount = 1;
+			}
+			singleJoltCount++;
+		}
+
+		writeDump(factors);
+
+		return total;
+	}
 </cfscript>
