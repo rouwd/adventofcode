@@ -15,13 +15,16 @@
 			e = trimCRLF( e );
 			var currentGame = {
 				number: getGameNumber( e ),
-				valid: isGameValid( max, e )
+				valid: isGameValid( max, e ),
+				power: getGamePower( e )
 			}
 			games.append( currentGame );
 		}, chr( 10 ) );
 	
-		answer = getAnswer();
-		writeOutput( "answer: " & answer );
+		gameIDSum = getGameIDSum( games );
+		writeOutput( "gameIDSum: " & gameIDSum & "<br>" );
+		gamePowerSum = getGamePowerSum( games );
+		writeOutput( "gamePowerSum: " & gamePowerSum & "<br>" );
 		writeDump( games );
 	} catch( any e ) {
 		writedump( e );
@@ -73,7 +76,7 @@
 		
 	}
 
-	function getAnswer( games ) {
+	function getGameIDSum( games ) {
 		var a = 0;
 		for (var game in games ) {
 			if( game.valid ) a += game.number;
@@ -84,6 +87,36 @@
 	function trimCRLF( s ){
 		var CRLF = chr( 10 ) & "," & chr( 13 );
 		return replaceList( s, CRLF, "" )
+	}
+
+	function getGamePower( game ) {
+		var sets = getSets( game );
+		var min = {
+			"red": 1,
+			"green": 1,
+			"blue": 1
+		}
+		for ( var set in sets ) {
+			var cubes = set.listToArray();
+			for ( var cube in cubes ){
+				color = listLast( cube, " " );
+				count = listFirst( cube, " " );
+				if ( count > min[ color ] ) {
+					min[ color ] = count;
+				}
+			}
+			// writeDump(cubes);
+		}
+		// writeDump(min);
+		// writedump( sets );
+		return min.red * min.green * min.blue;
+	}
+	function getGamePowerSum( games ) {
+		var a = 0;
+		for (var game in games ) {
+			a += game.power;
+		}
+		return a;
 	}
 	
 </cfscript>
